@@ -7,7 +7,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// MongoDB Connection (Aap apna local URI ya MongoDB Atlas URI yahan dal sakte hain)
+// MongoDB Connection
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/bps_balaghat';
 
 mongoose.connect(MONGO_URI)
@@ -20,7 +20,7 @@ mongoose.connect(MONGO_URI)
       await Notice.insertMany([
         { title: "Admission Open for Academic Session 2026-27. Register Now!", date: "10 Sep 2026", urgent: true },
         { title: "Half Yearly Examination Schedule released for Classes I to XII.", date: "05 Sep 2026", urgent: false },
-        { title: "Parent-Teacher Meeting (PTM) scheduled for upcoming Saturday.", date: "28 Aug 2026", urgent: false }
+        { title: "Assembly Rules & Fee Structure Guidelines Updated.", date: "28 Aug 2026", urgent: false }
       ]);
       console.log('Default notices seeded to database');
     }
@@ -34,6 +34,28 @@ app.get('/api/notices', async (req, res) => {
     res.json(notices);
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch notices' });
+  }
+});
+
+// POST New Notice API (Admin Panel)
+app.post('/api/notices', async (req, res) => {
+  try {
+    const { title, date } = req.body;
+    const newNotice = new Notice({ title, date: date || "Today", urgent: true });
+    await newNotice.save();
+    res.status(201).json(newNotice);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to add notice' });
+  }
+});
+
+// DELETE Notice API (Admin Panel)
+app.delete('/api/notices/:id', async (req, res) => {
+  try {
+    await Notice.findByIdAndDelete(req.params.id);
+    res.json({ success: true, message: "Notice deleted successfully!" });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete notice' });
   }
 });
 

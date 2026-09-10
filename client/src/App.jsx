@@ -58,9 +58,10 @@ export default function App() {
               <p className="text-[10px] text-amber-400 tracking-widest font-semibold uppercase">Balaghat, M.P.</p>
             </div>
           </div>
-          <nav className="hidden md:flex space-x-7 font-medium text-sm">
+          <nav className="hidden md:flex space-x-6 font-medium text-sm">
             <a href="#" className="hover:text-amber-400 transition">Home</a>
             <a href="#about" className="hover:text-amber-400 transition">About Us</a>
+            <a href="#cbse" className="hover:text-amber-400 transition text-amber-400 font-bold">CBSE</a>
             <a href="#notices" className="hover:text-amber-400 transition">Notice Board</a>
             <a href="#gallery" className="hover:text-amber-400 transition">Gallery</a>
             <a href="#contact" className="hover:text-amber-400 transition">Contact Us</a>
@@ -90,15 +91,14 @@ export default function App() {
               <a href="#notices" className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold px-8 py-3.5 rounded-xl shadow-xl transition">
                 View Notice Board
               </a>
-              <a href="#gallery" className="border border-slate-600 hover:bg-white hover:text-slate-950 font-bold px-8 py-3.5 rounded-xl transition">
-                Campus Gallery
+              <a href="#cbse" className="border border-slate-600 hover:bg-white hover:text-slate-950 font-bold px-8 py-3.5 rounded-xl transition">
+                CBSE Disclosures
               </a>
             </div>
           </div>
           <div className="md:col-span-5 flex justify-center">
             <div className="w-full max-w-md bg-white/10 backdrop-blur-md p-3 rounded-3xl border border-white/20 shadow-2xl">
               <div className="h-64 bg-slate-800 rounded-2xl flex items-center justify-center text-slate-400 text-xs font-medium relative overflow-hidden border border-white/10">
-                {/* Real Campus Image Integration */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-slate-950/70 via-transparent to-transparent z-10"></div>
                 <div className="absolute bottom-4 left-4 z-20 text-left">
                   <span className="bg-amber-500 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded uppercase">Real Campus View</span>
@@ -142,8 +142,44 @@ export default function App() {
         </div>
       </section>
 
+      {/* CBSE Mandatory Disclosure Section */}
+      <section id="cbse" className="py-20 bg-slate-100 border-t border-slate-200">
+        <div className="container mx-auto px-4">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-blue-700 font-extrabold uppercase tracking-widest text-xs bg-blue-100 px-3.5 py-1.5 rounded-full">
+              Affiliation & Compliance
+            </span>
+            <h2 className="text-3xl font-black text-slate-900 mt-3">CBSE Mandatory Public Disclosures</h2>
+            <p className="text-slate-600 text-sm mt-2">Essential documents, certificates, and institutional details as per CBSE guidelines.</p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { title: "Affiliation Status & Certificate", desc: "View official CBSE affiliation and extension details." },
+              { title: "Society / Trust Registration", desc: "Legal registration certificate of the governing body." },
+              { title: "NOC from State Government", desc: "No Objection Certificate issued by Madhya Pradesh Govt." },
+              { title: "Building Safety Certificate", desc: "Certified structural safety and architectural compliance." },
+              { title: "Fire Safety Certificate", desc: "Approved fire clearance and safety equipment audit." },
+              { title: "Academic Calendar & Fee Structure", desc: "Detailed breakdown of annual fees, classes, and terms." }
+            ].map((item, idx) => (
+              <div key={idx} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition flex flex-col justify-between">
+                <div>
+                  <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-800 font-bold flex items-center justify-center mb-4">📄</div>
+                  <h4 className="font-bold text-slate-900 text-base mb-1">{item.title}</h4>
+                  <p className="text-xs text-slate-500">{item.desc}</p>
+                </div>
+                <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between items-center">
+                  <span className="text-[11px] font-bold text-blue-900 uppercase tracking-wide">Document Verified</span>
+                  <span className="text-xs text-amber-600 font-bold cursor-pointer hover:underline">Download PDF →</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Notice Board & Inquiry Section */}
-      <section id="notices" className="py-20 bg-slate-100 border-t border-slate-200">
+      <section id="notices" className="py-20 bg-white border-t border-slate-200">
         <div className="container mx-auto px-4 grid lg:grid-cols-12 gap-8 items-start">
           
           {/* Notice Board */}
@@ -168,7 +204,7 @@ export default function App() {
           </div>
 
           {/* Quick Admission Inquiry Form */}
-          <div className="lg:col-span-6 bg-white p-8 rounded-3xl shadow-xl border border-slate-200">
+          <div className="lg:col-span-6 bg-slate-50 p-8 rounded-3xl shadow-xl border border-slate-200">
             <h3 className="text-xl font-extrabold text-slate-900 mb-4">Quick Admission Enquiry</h3>
             {submitted && (
               <div className="mb-4 bg-emerald-50 border border-emerald-200 text-emerald-800 p-3 rounded-xl text-xs font-semibold">
@@ -183,7 +219,7 @@ export default function App() {
                   required 
                   value={formData.studentName}
                   onChange={(e) => setFormData({...formData, studentName: e.target.value})}
-                  className="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-blue-900" 
+                  className="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm bg-white focus:outline-blue-900" 
                 />
                 <input 
                   type="text" 
@@ -191,7 +227,7 @@ export default function App() {
                   required 
                   value={formData.parentName}
                   onChange={(e) => setFormData({...formData, parentName: e.target.value})}
-                  className="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-blue-900" 
+                  className="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm bg-white focus:outline-blue-900" 
                 />
               </div>
               <div className="grid sm:grid-cols-2 gap-3">
@@ -201,7 +237,7 @@ export default function App() {
                   required 
                   value={formData.phone}
                   onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                  className="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-blue-900" 
+                  className="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm bg-white focus:outline-blue-900" 
                 />
                 <select 
                   value={formData.classApplying}
@@ -219,7 +255,7 @@ export default function App() {
                 placeholder="Message / Query (Optional)"
                 value={formData.message}
                 onChange={(e) => setFormData({...formData, message: e.target.value})}
-                className="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:outline-blue-900 resize-none"
+                className="w-full border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm bg-white focus:outline-blue-900 resize-none"
               ></textarea>
               <button type="submit" className="w-full bg-blue-900 hover:bg-blue-800 text-white font-bold py-3 rounded-xl text-sm uppercase tracking-wider shadow transition">
                 Submit Enquiry
@@ -231,7 +267,7 @@ export default function App() {
       </section>
 
       {/* Photo Gallery Section */}
-      <section id="gallery" className="py-20 bg-white border-t border-slate-200 text-center">
+      <section id="gallery" className="py-20 bg-slate-50 border-t border-slate-200 text-center">
         <div className="container mx-auto px-4">
           <span className="text-blue-600 font-extrabold uppercase tracking-widest text-xs bg-blue-100 px-3.5 py-1.5 rounded-full">
             Campus Tour
@@ -247,7 +283,7 @@ export default function App() {
               { title: "Playground & Kids Area", tag: "Sports" },
               { title: "Computer & Science Labs", tag: "Technology" }
             ].map((item, idx) => (
-              <div key={idx} className="h-52 bg-slate-100 rounded-2xl border border-slate-200 shadow-sm flex flex-col items-center justify-center p-6 hover:shadow-md transition text-center group">
+              <div key={idx} className="h-52 bg-white rounded-2xl border border-slate-200 shadow-sm flex flex-col items-center justify-center p-6 hover:shadow-md transition text-center group">
                 <span className="text-3xl mb-2 group-hover:scale-110 transition">🏫</span>
                 <span className="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded mb-1 uppercase">{item.tag}</span>
                 <h4 className="font-bold text-slate-800 text-sm">{item.title}</h4>
@@ -272,13 +308,14 @@ export default function App() {
             <ul className="space-y-1.5 text-slate-400 text-xs">
               <li><a href="#" className="hover:text-white">Home Portal</a></li>
               <li><a href="#about" className="hover:text-white">About Principal Desk</a></li>
+              <li><a href="#cbse" className="hover:text-white">CBSE Disclosures</a></li>
               <li><a href="#notices" className="hover:text-white">Notice Board</a></li>
             </ul>
           </div>
           <div>
             <h4 className="font-bold mb-2 text-slate-200">Contact Details</h4>
             <p className="text-slate-400 text-xs mb-1">📍 Balaghat, Madhya Pradesh, India</p>
-            <p className="text-slate-400 text-xs mb-1">📞 +91 8253074130</p>
+            <p className="text-slate-400 text-xs mb-1">📞 +91 XXXXXXXXXX</p>
             <p className="text-slate-400 text-xs">✉️ info@spisbalaghat.com</p>
           </div>
         </div>
